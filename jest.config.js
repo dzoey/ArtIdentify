@@ -1,3 +1,26 @@
 module.exports = {
   preset: '@react-native/jest-preset',
+  setupFiles: ['<rootDir>/jest.setup.js'],
+  moduleNameMapper: {
+    '^react-native($|/.*)': '<rootDir>/node_modules/react-native/$1',
+    '^@react-navigation/native$': '<rootDir>/__mocks__/@react-navigation/native.js',
+    '^@react-navigation/native-stack$': '<rootDir>/__mocks__/@react-navigation/native-stack.js',
+    '^@react-navigation/bottom-tabs$': '<rootDir>/__mocks__/@react-navigation/bottom-tabs.js',
+    '^react-native-vision-camera$': '<rootDir>/__mocks__/react-native-vision-camera.js',
+    '^@react-native-community/geolocation$': '<rootDir>/__mocks__/@react-native-community/geolocation.js',
+    '^@react-native-async-storage/async-storage$': '<rootDir>/__mocks__/async-storage.js',
+    '^@react-native-ml-kit/image-labeling$': '<rootDir>/__mocks__/image-labeling.js',
+    '^react-native-image-resizer$': '<rootDir>/__mocks__/react-native-image-resizer.js',
+    '^react-native-vector-icons/(.*)$': '<rootDir>/__mocks__/react-native-vector-icons.js',
+    '^react-native-screens$': '<rootDir>/__mocks__/react-native-screens.js',
+    '^react-native-reanimated$': '<rootDir>/__mocks__/react-native-reanimated.js',
+    '^react-native-safe-area-context$': '<rootDir>/__mocks__/react-native-safe-area-context.js',
+    '^react-native-nitro-modules$': '<rootDir>/__mocks__/react-native-nitro-modules.js',
+    '^react-native-nitro-image$': '<rootDir>/__mocks__/react-native-nitro-image.js',
+    '^react-native-worklets$': '<rootDir>/__mocks__/react-native-worklets.js',
+  },
+  transformIgnorePatterns: [
+    'node_modules/(?!((jest-)?react-native|@react-native(-community)?|@react-navigation|react-native-vision-camera|react-native-reanimated|react-native-screens|react-native-safe-area-context|react-native-worklets|react-native-nitro))',
+  ],
+  testPathIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/android/', '<rootDir>/ios/'],
 };

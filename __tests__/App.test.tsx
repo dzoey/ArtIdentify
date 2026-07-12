@@ -1,6 +1,5 @@
-/**
- * @format
- */
+// __tests__/App.test.tsx
+// Updated App test that works with mocked navigation
 
 import React from 'react';
 import ReactTestRenderer from 'react-test-renderer';
