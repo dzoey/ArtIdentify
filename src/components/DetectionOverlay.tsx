@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Dimensions} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import type {DetectedObject} from '../types';
 
 interface DetectionOverlayProps {
@@ -28,7 +28,7 @@ export function DetectionOverlay({
 
   return (
     <View style={styles.container}>
-      {objects.map((obj, index) => {
+      {objects.map((obj, _index) => {
         const isSelected = selectedObjectId === obj.id;
         const box = obj.boundingBox;
 
@@ -49,16 +49,9 @@ export function DetectionOverlay({
             onPress={() => onSelectObject(obj)}
             style={[
               styles.box,
-              {
-                left,
-                top,
-                width,
-                height,
-                borderColor: isSelected ? '#FFD700' : '#00E5FF',
-                backgroundColor: isSelected
-                  ? 'rgba(255, 215, 0, 0.15)'
-                  : 'rgba(0, 229, 255, 0.1)',
-              },
+              styles.dynamicBox,
+              isSelected ? styles.boxSelected : styles.boxUnselected,
+              { left, top, width, height },
             ]}>
             <View style={styles.labelContainer}>
               <Text style={styles.labelText}>
@@ -79,7 +72,7 @@ export function DetectionOverlay({
 
 const styles = StyleSheet.create({
   container: {
-    ...StyleSheet.absoluteFillObject,
+    ...StyleSheet.absoluteFill,
   },
   box: {
     position: 'absolute',
@@ -87,6 +80,17 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     justifyContent: 'flex-start',
     alignItems: 'center',
+  },
+  dynamicBox: {
+    position: 'absolute',
+  },
+  boxSelected: {
+    borderColor: '#FFD700',
+    backgroundColor: 'rgba(255, 215, 0, 0.15)',
+  },
+  boxUnselected: {
+    borderColor: '#00E5FF',
+    backgroundColor: 'rgba(0, 229, 255, 0.1)',
   },
   labelContainer: {
     backgroundColor: 'rgba(0, 0, 0, 0.7)',

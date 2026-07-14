@@ -1,4 +1,4 @@
-import type {DetectedObject, BoundingBox} from '../types';
+import type {DetectedObject} from '../types';
 
 /**
  * DetectionService — bridges on-device ML Kit object detection with the app.

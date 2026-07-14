@@ -8,14 +8,11 @@ import {
   Platform,
   Alert,
   ActivityIndicator,
-  Dimensions,
 } from 'react-native';
-import {Camera, useCameraDevice} from 'react-native-vision-camera';
+import {Camera, useCameraDevice, useCameraPermission} from 'react-native-vision-camera';
 import type {DetectedObject, LocationData} from '../types';
 import {detectObjects} from '../services/DetectionService';
 import {getCurrentLocation} from '../services/LocationService';
-
-const {width: SCREEN_WIDTH} = Dimensions.get('window');
 
 interface CameraScreenProps {
   onPhotoCaptured: (
@@ -26,14 +23,16 @@ interface CameraScreenProps {
 }
 
 export function CameraScreen({onPhotoCaptured}: CameraScreenProps) {
-  const cameraRef = useRef<Camera>(null);
+  const cameraRef = useRef<any>(null);
   const [hasPermission, setHasPermission] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const [flash, setFlash] = useState(false);
   const device = useCameraDevice('back');
+  const { requestPermission: requestCameraPermission } = useCameraPermission();
 
   useEffect(() => {
     requestPermissions();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   async function requestPermissions() {
@@ -42,7 +41,7 @@ export function CameraScreen({onPhotoCaptured}: CameraScreenProps) {
         const cameraGranted = await PermissionsAndroid.request(
           PermissionsAndroid.PERMISSIONS.CAMERA,
         );
-        const locationGranted = await PermissionsAndroid.request(
+        await PermissionsAndroid.request(
           PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
         );
         setHasPermission(cameraGranted === PermissionsAndroid.RESULTS.GRANTED);
@@ -50,8 +49,8 @@ export function CameraScreen({onPhotoCaptured}: CameraScreenProps) {
         console.warn('Permission error:', err);
       }
     } else {
-      const cameraPermission = await Camera.requestCameraPermission();
-      setHasPermission(cameraPermission === 'granted');
+      const cameraPermission = await requestCameraPermission();
+      setHasPermission(cameraPermission === true);
     }
   }
 
@@ -110,10 +109,9 @@ export function CameraScreen({onPhotoCaptured}: CameraScreenProps) {
     <View style={styles.container}>
       <Camera
         ref={cameraRef}
-        style={StyleSheet.absoluteFill}
+        style={StyleSheet.absoluteFill as any}
         device={device}
         isActive={true}
-        photo={true}
       />
 
       {/* Top bar */}

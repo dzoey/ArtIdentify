@@ -2,7 +2,6 @@
 // Tests for the on-device ML Kit detection + fallback logic
 
 import {detectObjects} from '../src/services/DetectionService';
-import type {DetectedObject} from '../src/types';
 
 describe('DetectionService', () => {
   describe('detectObjects', () => {

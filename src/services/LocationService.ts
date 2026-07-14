@@ -41,14 +41,8 @@ export async function requestLocationPermission(): Promise<boolean> {
     return true; // iOS handles via Info.plist
   }
 
-  try {
-    // For React Native, the geolocation library handles permission natively
-    // But we should check if we can access location
-    return true;
-  } catch (error) {
-    console.log('Permission error:', error);
-    return false;
-  }
+  // For React Native, the geolocation library handles permission natively
+  return true;
 }
 
 /**

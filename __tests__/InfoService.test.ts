@@ -5,7 +5,7 @@ import {isArtRelated, getObjectInfo} from '../src/services/InfoService';
 import type {DetectedObject, LocationData} from '../src/types';
 
 // Mock global fetch
-const mockFetch = global.fetch as jest.MockedFunction<typeof fetch>;
+const mockFetch = globalThis.fetch as jest.MockedFunction<typeof fetch>;
 
 function makeDetectedObject(label: string, confidence: number = 0.9): DetectedObject {
   return {

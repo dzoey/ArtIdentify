@@ -32,7 +32,7 @@ describe('LocationService', () => {
     });
 
     it('should return null when geolocation fails', async () => {
-      Geolocation.getCurrentPosition.mockImplementationOnce((success, error) => {
+      Geolocation.getCurrentPosition.mockImplementationOnce((_success: any, error: any) => {
         error({ code: 1, message: 'Permission denied' });
       });
 
@@ -41,7 +41,7 @@ describe('LocationService', () => {
     });
 
     it('should return null when geolocation times out', async () => {
-      Geolocation.getCurrentPosition.mockImplementationOnce((success, error) => {
+      Geolocation.getCurrentPosition.mockImplementationOnce((_success: any, error: any) => {
         error({ code: 3, message: 'Timeout' });
       });
 
